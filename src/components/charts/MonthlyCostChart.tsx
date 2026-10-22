@@ -24,8 +24,8 @@ export function MonthlyCostChart({ data, title = '월별 API 비용 · 구독료
           <YAxis tick={axisTick} tickLine={false} axisLine={false} tickFormatter={(v: number) => `$${v}`} />
           <Tooltip {...tooltipStyle} formatter={(value, name) => [formatUsd(typeof value === 'number' ? value : Number(value)), name]} />
           <Legend wrapperStyle={{ fontSize: 12 }} />
-          <Bar dataKey="apiUsd" name="API 비용 (추정 포함)" fill={chartColors.primary} maxBarSize={32} radius={[3, 3, 0, 0]} />
-          <Bar dataKey="subscriptionUsd" name="월 구독료" fill={chartColors.success} maxBarSize={32} radius={[3, 3, 0, 0]} />
+          <Bar isAnimationActive={false} dataKey="apiUsd" name="API 비용 (추정 포함)" fill={chartColors.primary} maxBarSize={32} radius={[3, 3, 0, 0]} />
+          <Bar isAnimationActive={false} dataKey="subscriptionUsd" name="월 구독료" fill={chartColors.success} maxBarSize={32} radius={[3, 3, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </ChartFrame>

@@ -113,6 +113,15 @@ export default function SimulatorPage() {
 
   // ----- 결과 구독 -----
   const sim = useSimulationDetail(simId);
+  // 저장된 결과(?sim=)를 직접 열었을 때 설정 패널이 비어 있으면 당시 실행 조건으로 채운다 (재실행 아님, rerun_of 없음)
+  const filledFromSim = useRef<string | null>(null);
+  useEffect(() => {
+    const d = sim.detail;
+    if (!d || fromId || ref.loading) return;
+    if (filledFromSim.current === d.run.simulation_id) return;
+    filledFromSim.current = d.run.simulation_id;
+    setConfig((cur) => (cur === DEFAULT_CONFIG ? restoreFromRun(d.run, ref.modelById).config : cur));
+  }, [sim.detail, fromId, ref.loading, ref.modelById]);
   useEffect(() => {
     const d = sim.detail;
     if (!d) return;

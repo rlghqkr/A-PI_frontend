@@ -29,9 +29,9 @@ export function DailyCostStackChart({ data, title = 'API 비용 추이', unitLab
           <YAxis tick={axisTick} tickLine={false} axisLine={false} tickFormatter={(v: number) => `$${v}`} />
           <Tooltip {...tooltipStyle} formatter={(value, name) => [formatUsd(typeof value === 'number' ? value : Number(value)), name]} />
           <Legend wrapperStyle={{ fontSize: 12 }} />
-          <Bar dataKey="confirmedUsd" name="확정 비용" stackId="c" fill={chartColors.primary} maxBarSize={28} />
-          <Bar dataKey="estimatedUsd" name="추정 비용" stackId="c" fill={chartColors.estimated} maxBarSize={28} radius={[3, 3, 0, 0]} />
-          {withSubscription && <Bar dataKey="subscriptionUsd" name="구독료 (적용 월)" stackId="s" fill={chartColors.success} maxBarSize={28} radius={[3, 3, 0, 0]} />}
+          <Bar isAnimationActive={false} dataKey="confirmedUsd" name="확정 비용" stackId="c" fill={chartColors.primary} maxBarSize={28} />
+          <Bar isAnimationActive={false} dataKey="estimatedUsd" name="추정 비용" stackId="c" fill={chartColors.estimated} maxBarSize={28} radius={[3, 3, 0, 0]} />
+          {withSubscription && <Bar isAnimationActive={false} dataKey="subscriptionUsd" name="구독료 (적용 월)" stackId="s" fill={chartColors.success} maxBarSize={28} radius={[3, 3, 0, 0]} />}
         </BarChart>
       </ResponsiveContainer>
     </ChartFrame>

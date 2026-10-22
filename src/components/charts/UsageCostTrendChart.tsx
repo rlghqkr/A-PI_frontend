@@ -50,9 +50,9 @@ export function UsageCostTrendChart({ data, unitLabel, title = '사용량 · 비
             }}
           />
           <Legend wrapperStyle={{ fontSize: 12 }} />
-          <Bar yAxisId="left" dataKey="tasks" name="작업 건수" fill={chartColors.sky} radius={[3, 3, 0, 0]} maxBarSize={28} />
-          <Line yAxisId="right" type="monotone" dataKey="confirmedUsd" name="확정 비용" stroke={chartColors.primary} strokeWidth={2} dot={false} />
-          <Line
+          <Bar isAnimationActive={false} yAxisId="left" dataKey="tasks" name="작업 건수" fill={chartColors.sky} radius={[3, 3, 0, 0]} maxBarSize={28} />
+          <Line isAnimationActive={false} yAxisId="right" type="monotone" dataKey="confirmedUsd" name="확정 비용" stroke={chartColors.primary} strokeWidth={2} dot={false} />
+          <Line isAnimationActive={false}
             yAxisId="right"
             type="monotone"
             dataKey="estimatedUsd"

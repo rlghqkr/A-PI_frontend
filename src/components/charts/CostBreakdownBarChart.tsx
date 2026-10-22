@@ -34,8 +34,8 @@ export function CostBreakdownBarChart({ data, title = '비용 분석', height }:
             }}
           />
           <Legend wrapperStyle={{ fontSize: 12 }} />
-          <Bar dataKey="confirmedUsd" name="확정 비용" stackId="cost" fill={chartColors.primary} maxBarSize={22} />
-          <Bar dataKey="estimatedUsd" name="추정 비용" stackId="cost" fill={chartColors.estimated} maxBarSize={22} radius={[0, 3, 3, 0]} />
+          <Bar isAnimationActive={false} dataKey="confirmedUsd" name="확정 비용" stackId="cost" fill={chartColors.primary} maxBarSize={22} />
+          <Bar isAnimationActive={false} dataKey="estimatedUsd" name="추정 비용" stackId="cost" fill={chartColors.estimated} maxBarSize={22} radius={[0, 3, 3, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </ChartFrame>

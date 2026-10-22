@@ -35,7 +35,7 @@ export function ResultSummaryBar({ detail, actions, className }: ResultSummaryBa
         </div>
         {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
       </div>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 2xl:grid-cols-6">
         <KpiCard label="실행 모델 수" value={formatInt(s.modelCount)} unit="개" sub={running ? `${s.running}개 실행 중` : undefined} />
         <KpiCard
           label="성공 / 실패·Timeout"
