@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+.DS_Store
+
+# Node
+node_modules/
+dist/
+*.local
+.vite/
