@@ -7,7 +7,7 @@ AI 사용량·비용 통제, 모델 등록·검증, Multi-LLM 비교 실험을 �
 
 ```bash
 pnpm install
-pnpm dev          # http://localhost:5173
+pnpm dev          # http://localhost:5180 (점유 시 자동으로 다음 포트, 터미널 표시 주소 사용)
 pnpm build        # tsc -b && vite build
 pnpm lint         # oxlint
 pnpm exec vitest run
