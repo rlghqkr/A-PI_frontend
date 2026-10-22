@@ -5,6 +5,9 @@ AI 사용량·비용 통제, 모델 등록·검증, Multi-LLM 비교 실험을 �
 
 ## 실행
 
+**필요 환경: Node.js 20.19 이상 또는 22.12 이상** (Vite 8 요구사항). 버전 확인은 `node -v`. 그보다 낮으면 설치·실행 단계에서 오류가 납니다.
+패키지 매니저는 pnpm 권장(lockfile 기준), npm(`npm install` / `npm run dev`)으로도 실행됩니다.
+
 ```bash
 pnpm install
 pnpm dev          # http://localhost:5180 (점유 시 자동으로 다음 포트, 터미널 표시 주소 사용)
@@ -13,7 +16,7 @@ pnpm lint         # oxlint
 pnpm exec vitest run
 ```
 
-Node 22 / pnpm 11 기준. 백엔드 없이 **Mock Adapter** 로 동작합니다 (아래 참고).
+개발·검증 환경: Node 22 / pnpm 11. 백엔드 없이 **Mock Adapter** 로 동작합니다 (아래 참고).
 
 ## 화면
 
