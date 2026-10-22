@@ -225,3 +225,7 @@ node_modules/
 dist/
 *.local
 .vite/
+
+# Frontend source (override Python template rules above)
+!src/lib/
+!src/**/build/
