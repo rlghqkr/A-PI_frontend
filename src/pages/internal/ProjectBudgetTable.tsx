@@ -50,7 +50,22 @@ export function ProjectBudgetTable({ rows, budgetMonth, loading, error, onRetry 
             </span>
           ),
       },
-      { key: 'origin', header: '출처 구성', accessor: (r) => r.summary.totalIncludingEstimatedUsd, render: (r) => <OriginChips row={r} /> },
+      {
+        key: 'budget',
+        header: `월 예산 (${budgetMonth})`,
+        accessor: (r) => r.budget?.amount_usd ?? null,
+        align: 'right',
+        render: (r) => (r.projectId ? r.budget ? formatUsd(r.budget.amount_usd) : <span className="text-ink-muted">미설정</span> : <span className="text-ink-muted">-</span>),
+      },
+      { key: 'pct', header: '사용률', accessor: (r) => r.status.pct, width: 180, render: (r) => (r.projectId ? <BudgetUsageCell status={r.status} hideState /> : <span className="text-xs text-ink-muted">해당 없음</span>) },
+      { key: 'state', header: '상태', accessor: (r) => r.status.state, render: (r) => (r.projectId ? <BudgetStateBadge state={r.status.state} /> : <span className="text-xs text-ink-muted">-</span>) },
+      {
+        key: 'spent',
+        header: '사용액',
+        accessor: (r) => r.summary.totalIncludingEstimatedUsd,
+        align: 'right',
+        render: (r) => <EstimatedTotalLabel confirmed={r.summary.confirmedUsd} estimated={r.summary.estimatedUsd} unknownCount={0} size="sm" />,
+      },
       { key: 'confirmed', header: '확정', accessor: (r) => r.summary.confirmedUsd, align: 'right', render: (r) => formatUsd(r.summary.confirmedUsd) },
       { key: 'estimated', header: '추정', accessor: (r) => r.summary.estimatedUsd, align: 'right', render: (r) => <span className="text-estimated">{formatUsd(r.summary.estimatedUsd)}</span> },
       {
@@ -67,22 +82,7 @@ export function ProjectBudgetTable({ rows, budgetMonth, loading, error, onRetry 
         align: 'right',
         render: (r) => (r.projectId ? formatUsd(r.subscriptionUsd, { precision: 2 }) : <span className="text-ink-muted">-</span>),
       },
-      {
-        key: 'budget',
-        header: `월 예산 (${budgetMonth})`,
-        accessor: (r) => r.budget?.amount_usd ?? null,
-        align: 'right',
-        render: (r) => (r.projectId ? r.budget ? formatUsd(r.budget.amount_usd) : <span className="text-ink-muted">미설정</span> : <span className="text-ink-muted">-</span>),
-      },
-      {
-        key: 'spent',
-        header: '사용액',
-        accessor: (r) => r.summary.totalIncludingEstimatedUsd,
-        align: 'right',
-        render: (r) => <EstimatedTotalLabel confirmed={r.summary.confirmedUsd} estimated={r.summary.estimatedUsd} unknownCount={0} size="sm" />,
-      },
-      { key: 'pct', header: '사용률', accessor: (r) => r.status.pct, width: 180, render: (r) => (r.projectId ? <BudgetUsageCell status={r.status} hideState /> : <span className="text-xs text-ink-muted">해당 없음</span>) },
-      { key: 'state', header: '상태', accessor: (r) => r.status.state, render: (r) => (r.projectId ? <BudgetStateBadge state={r.status.state} /> : <span className="text-xs text-ink-muted">-</span>) },
+      { key: 'origin', header: '출처 구성', accessor: (r) => r.summary.totalIncludingEstimatedUsd, render: (r) => <OriginChips row={r} /> },
     ],
     [budgetMonth],
   );

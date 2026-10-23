@@ -32,6 +32,8 @@ export default function SimulatorPage() {
   const [config, setConfig] = useState<SimConfig>(DEFAULT_CONFIG);
   const [droppedModels, setDroppedModels] = useState<string[]>([]);
   const restoredFor = useRef<string | null>(null);
+  /** 복원된 config 가 state 에 반영된 원본 ID. ref 와 달리 렌더를 일으켜 자동 실행 effect 가 복원 후의 preflight 를 보게 한다. */
+  const [appliedFrom, setAppliedFrom] = useState<string | null>(null);
 
   // ----- 헤더 -----
   const breadcrumb = useMemo(() => [{ label: 'Multi-LLM Simulator' }], []);
@@ -56,10 +58,12 @@ export default function SimulatorPage() {
     const { config: restored, droppedModelIds } = restoreFromRun(source.data.run, ref.modelById, overrideModelIds);
     setConfig(restored);
     setDroppedModels(droppedModelIds);
+    setAppliedFrom(fromId);
   }, [fromId, source.data, ref.loading, ref.modelById, overrideModelIds]);
   useEffect(() => {
     if (!fromId) {
       restoredFor.current = null;
+      setAppliedFrom(null);
       setDroppedModels([]);
     }
   }, [fromId]);
@@ -98,7 +102,7 @@ export default function SimulatorPage() {
   const autoRun = url.run === '1';
   const autoRanFor = useRef<string | null>(null);
   useEffect(() => {
-    if (!autoRun || !fromId || simId || !sourceRunReady(restoredFor.current, fromId)) return;
+    if (!autoRun || !fromId || simId || !sourceRunReady(appliedFrom, fromId)) return;
     if (autoRanFor.current === fromId) return;
     if (!preflight.canRun) {
       autoRanFor.current = fromId;
@@ -109,7 +113,7 @@ export default function SimulatorPage() {
     autoRanFor.current = fromId;
     setUrl({ run: '' });
     void onRun();
-  }, [autoRun, fromId, simId, preflight, onRun, setUrl, toast]);
+  }, [autoRun, fromId, simId, appliedFrom, preflight, onRun, setUrl, toast]);
 
   // ----- 결과 구독 -----
   const sim = useSimulationDetail(simId);
@@ -146,6 +150,7 @@ export default function SimulatorPage() {
     setConfig(DEFAULT_CONFIG);
     setDroppedModels([]);
     restoredFor.current = null;
+    setAppliedFrom(null);
     setUrl({ sim: '', from: '', models: '', run: '' });
   }, [setUrl]);
 
@@ -217,7 +222,7 @@ export default function SimulatorPage() {
   );
 }
 
-/** 복원 effect 가 해당 원본에 대해 이미 config 를 적용했는지 */
-function sourceRunReady(restoredFor: string | null, fromId: string): boolean {
-  return restoredFor === fromId;
+/** 복원 effect 가 해당 원본의 config 를 state 에 반영했는지 */
+function sourceRunReady(appliedFrom: string | null, fromId: string): boolean {
+  return appliedFrom === fromId;
 }
