@@ -8,7 +8,8 @@ import { CustomerFilterBar } from './CustomerFilterBar';
 import { CustomerKpis } from './CustomerKpis';
 import { CustomerUsageTable } from './CustomerUsageTable';
 import { RequestHistoryTable } from './RequestHistoryTable';
-import { GRANULARITY_OPTIONS, useCustomerFilters } from './filters';
+import { scrollToSection } from '../../lib/scrollToSection';
+import { GRANULARITY_OPTIONS, useCustomerFilters, REQUEST_HISTORY_ID } from './filters';
 import { useBudgets, useCustomerRequests } from './useCustomerUsageData';
 
 export default function CustomerUsagePage() {
@@ -37,7 +38,11 @@ export default function CustomerUsagePage() {
     reloadRequests();
     reloadBudgets();
   }, [reloadRequests, reloadBudgets]);
-  const toggleUnknown = useCallback(() => setCostFilter(applied.costFilter === 'UNKNOWN' ? null : 'UNKNOWN'), [applied.costFilter, setCostFilter]);
+  const toggleUnknown = useCallback(() => {
+    const turningOn = applied.costFilter !== 'UNKNOWN';
+    setCostFilter(turningOn ? 'UNKNOWN' : null);
+    if (turningOn) scrollToSection(REQUEST_HISTORY_ID);
+  }, [applied.costFilter, setCostFilter]);
   const unitLabel = GRANULARITY_OPTIONS.find((g) => g.value === applied.granularity)?.label ?? '일';
 
   return (

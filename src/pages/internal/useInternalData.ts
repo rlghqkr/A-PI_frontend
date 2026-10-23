@@ -22,6 +22,7 @@ import { addDays, todayKst, toKstMonth } from '../../domain/format';
 import type { AIRequest, Budget, DateRange, Granularity, SubscriptionCost, UsageOrigin } from '../../domain/types';
 import { useAsync } from '../../hooks/useAsync';
 import { useUrlState } from '../../hooks/useUrlState';
+import { scrollToSection } from '../../lib/scrollToSection';
 
 export const INTERNAL_ORIGINS: UsageOrigin[] = ['INTERNAL_DEVELOPMENT', 'SIMULATION', 'SYSTEM_TEST'];
 export type InternalOrigin = 'INTERNAL_DEVELOPMENT' | 'SIMULATION' | 'SYSTEM_TEST';
@@ -236,7 +237,7 @@ export function useInternalDerived(
 export type DetailFocus = 'all' | 'user-unclassified' | 'project-unclassified';
 
 function scrollToDetailTable() {
-  window.setTimeout(() => document.getElementById('internal-detail-table')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
+  scrollToSection('internal-detail-table');
 }
 
 /** 상세 테이블 필터(미분류 보기 · 비용 미확인만) 상태. KPI 클릭이 실제로 필터를 적용할 수 있도록 페이지 레벨에 둔다 */

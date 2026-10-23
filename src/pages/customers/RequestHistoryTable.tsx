@@ -6,6 +6,7 @@ import { ERROR_TYPE } from '../../domain/status';
 import type { AIRequest } from '../../domain/types';
 import { useNames } from '../../hooks/useReferenceData';
 import { CostCell, CostStatusBadge, ExecStatusBadge, ModelCell, RequestIdCell } from '../../features/shared/cells';
+import { REQUEST_HISTORY_ID } from './filters';
 
 export interface RequestHistoryTableProps {
   /** 조회 조건으로 필터된 전체 배열 (KPI 와 동일) */
@@ -93,6 +94,7 @@ export function RequestHistoryTable({ rows, loading, error, onRetry, unknownOnly
 
   return (
     <SectionCard
+      id={REQUEST_HISTORY_ID}
       title="상세 API 호출 이력"
       description={
         unknownOnly

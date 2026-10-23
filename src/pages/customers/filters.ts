@@ -94,3 +94,6 @@ export function useCustomerFilters(opts?: { lockedCustomerId?: string }) {
   const setSort = useCallback((table: SortableTable, s: SortState) => setState({ [table]: serializeSort(s) } as Partial<CustomerFilterState>), [setState]);
   return { state, setState, applied, setCostFilter, sorts, setSort };
 }
+
+/** P-01 상세 API 호출 이력 섹션 id — KPI '비용 미확인' 클릭 시 이동 대상 */
+export const REQUEST_HISTORY_ID = 'customer-request-history';
